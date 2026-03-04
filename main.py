@@ -15,43 +15,6 @@
     # Save in Cache
     # """
 
-
-
-
-
-
-    # import redis
-    # import json
-    # from fastapi import FastAPI
-
-    # app = FastAPI()
-    # r = redis.Redis(host="localhost", port=6379, db=0)
-
-
-    # print(r.ping())  # True aana chahiye
-
-
-    # # print(r.keys("*"))
-
-
-
-    # def fetch_user_from_db(user_id):
-    #     print("DB fetch")
-    #     return {"id": user_id, "name": f"User{user_id}"}
-
-    # @app.get("/user/redis/{user_id}")
-    # def get_user(user_id: int):
-        
-    #     cached = r.get(f"user:{user_id}")
-    #     if cached:
-    #         print("Cache hit for user:", user_id)
-    #         return json.loads(cached)   # Cache hit
-    #     print("Cache miss for user:", user_id)
-    #     user = fetch_user_from_db(user_id)
-    #     r.set(f"user:{user_id}", json.dumps(user), ex=60000)  # Cache miss, set TTL 60s
-    #     return user
-
-
 import redis
 import json
 from fastapi import FastAPI
@@ -104,4 +67,5 @@ def get_user(user_id: int):
     print("Cache MISS:", user_id)
     user = fetch_user_from_db(user_id)
     r.set(f"user:{user_id}", json.dumps(user), ex=60)  # TTL = 60 sec for cache
+
     return {"data": user, "source": "db"}
